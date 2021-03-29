@@ -1,5 +1,7 @@
 package com.teraculus.remotefunctions.domain.core
 
+import com.teraculus.remotefunction.domain.Constants
+import com.teraculus.remotefunction.domain.core.CoreException
 import com.teraculus.remotefunction.domain.core.CoreFunctionInterface
 import com.teraculus.remotefunction.domain.core.CoreModel
 import com.teraculus.remotefunctions.domain.model.*
@@ -33,7 +35,7 @@ class CoreFunction(coreRepository: CoreRepositoryInterface) : CoreFunctionInterf
                 functionAll = functionAll.replace(key.param, (params.get(key) as ParamSet).param)
 
             } catch (error: Exception) {
-                if(replaceAllParams) throw IllegalArgumentException("Existem Parametros que não foram preenchidos ${key.param}")
+                if(replaceAllParams) throw CoreException(Constants.messageNotFoundParamsExeception + " ${key.param}")
             }
         }
 
@@ -45,4 +47,5 @@ class CoreFunction(coreRepository: CoreRepositoryInterface) : CoreFunctionInterf
     }
 
     override fun getReplaceFunctionName(): String = "#FUNCTION_NAME#"
+
 }
